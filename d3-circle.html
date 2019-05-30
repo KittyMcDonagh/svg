@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D3 and Scalable Vector Graphics</title>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+</head>
+
+<body>
+    <h1>Data Visualisation</h1>
+
+    <h2>D3 and Scalable Vector Graphics</h2>
+
+    <div id="draw-here"></div>
+    <!-- given id "draw here" so d3 can attach to it -->
+
+    <!--    the "data" below will be provided to the svgs. 
+            the d3.select, selects the div with id "draw-here" 
+            d3 allows you to chain functions together, separated by a . (.select, .append, etc) 
+            The ".append("svg)" is programatically creating an svg element, and a width and height 
+            of the viewport are being assigned to it (var w & var h; attr(width, w; attr height, h)
+            "var svg" results in the creation of an object (svg can be any name) 
+            The svg object is used to call the "selectAll" function.
+            The selectAll function will select as many circles as are generated as a result of the "data" array.
+            The data array is passed as a variable to the ".data" function.
+            The d3.enter function binds the data to the circles we're about to create. 
+            We're going to create a circle for each entry in the array. 
+            An anonymous function is created with 2 variables (d (data - 40, 50, etc), i(index within the array).
+            That will give us the x co-ordinate for each datum, for each circle.
+            The x value of each datum (circle) is set to be 150 units to the right of its predecessor.
+            The y coordinate splits the height of the viewport in 2.
+            So the elements combine to be 500 pixels apart and the radius for each is defined in the array.
+            If you add another element to this array you wont be able to see it unless you increase the width -->
+
+    <script>
+        var w = 700;
+        var h = 200;
+
+        var data = [40, 50, 10, 30, 20, 70];
+
+        //Create SVG element
+        var svg = d3.select("#draw-here")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+        svg.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", function(d, i) {
+                return 50 + (i * 100);
+            })
+            .attr("cy", h / 2)
+            .attr("r", function(d) {
+                return d;
+            });
+    </script>
+</body>
+
+</html>
